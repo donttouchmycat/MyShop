@@ -32,3 +32,9 @@ function delCate($where){
 		}
 	return $mes;
 }
+
+function getAllCate(){
+	$sql="select id,cName from my_cate";
+	$rows = fetchAll($sql);
+	return $rows;
+}
