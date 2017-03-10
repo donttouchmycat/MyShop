@@ -30,11 +30,11 @@ CREATE TABLE my_user(
 id int unsigned auto_increment key,
 username varchar(20) not null unique,
 password char(32) not null,
-sx enum("man","woman","secret") not null default "secret",
+sex enum("男","女","保密") not null default "保密",
 face varchar(50) not null,
 regTime int unsigned not null
  );
- 
+
  CREATE TABLE my_album(
  id int unsigned auto_increment key,
  pid int unsigned not null,

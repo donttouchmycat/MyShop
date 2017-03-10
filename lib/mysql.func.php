@@ -1,5 +1,4 @@
 <?php
-require_once '../include.php';
 function connect(){
 	$link = mysqli_connect(DB_HOST,DB_USER,DB_PWD,DB_DBNAME) or die("数据库连接失败Erro:".mysqli_errno($link).":".mysqli_error($link));
 	mysqli_set_charset($link, DB_CHARSET);
@@ -16,6 +15,7 @@ function insert($table,$array){
 	$key = join(",", array_keys($array));
 	$vals="'".join("','",array_values($array))."'";
 	$sql="insert {$table}($key) values({$vals})";
+
 	mysqli_query($link, $sql);
 	return mysqli_insert_id($link);
 	mysqli_close($link);
@@ -74,6 +74,9 @@ function delete($table,$where = null){
 function fetchOne($sql,$result_type=MYSQL_ASSOC){
 	$link = connect();
 	$result = mysqli_query($link,$sql);
+	if (!$result){
+		return null;
+	}
 	$row = mysqli_fetch_array($result,$result_type);
 	return $row;
 	mysqli_close($link);
@@ -88,6 +91,9 @@ function fetchOne($sql,$result_type=MYSQL_ASSOC){
 function fetchAll($sql,$result_type = MYSQLI_ASSOC){
 	$link = connect();
 	$result = mysqli_query($link,$sql);
+	if (!$result){
+		return null;
+	}
 	while($row = mysqli_fetch_array($result,$result_type)){
 		$rows[] = $row;
 	}
@@ -103,6 +109,9 @@ function fetchAll($sql,$result_type = MYSQLI_ASSOC){
 function getResultNum($sql){
 	$link = connect();
 	$result = mysqli_query($link,$sql);
+	if (!$result){
+		return null;
+	}
 	return mysqli_num_rows($result);
 	mysqli_close($link);
 }

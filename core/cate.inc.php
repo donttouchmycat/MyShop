@@ -24,13 +24,20 @@ function editCate($where){
 	return $mes;
 }
 
-function delCate($where){
-	if (delete("my_cate",$where)){
-		$mes = "分类删除成功<br/><a href='listCate.php'>查看分类</a>";
-		}else {
-			$mes = "删除失败<br/><a href='listCate.php'>查看分类</a>";
-		}
-	return $mes;
+function delCate($id){
+	$res=checkProExist($id);
+	if (!$res){
+		$where="id=".$id;
+		if (delete("my_cate",$where)){
+			$mes = "分类删除成功<br/><a href='listCate.php'>查看分类</a>";
+			}else {
+				$mes = "删除失败<br/><a href='listCate.php'>查看分类</a>";
+			}
+		return $mes;
+	}else{
+		alertMes("不能删除分类请先删除分类下的商品", "listPro.php");
+	}
+
 }
 
 function getAllCate(){

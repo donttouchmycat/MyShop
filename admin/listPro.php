@@ -75,12 +75,12 @@ $rows=fetchAll($sql);
                 <th width="10%">商品分类</th>
                 <th width="10%">是否上架</th>
                 <th width="15%">上架时间</th>
-                <th width="10%">慕课价格</th>
+                <th width="10%">价格</th>
                 <th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach($rows as $row):?>
+			<?php if ($rows){ foreach($rows as $row):?>
 			<tr>
 			<!--这里的id和for里面的c1 需要循环出来-->
 				<td><input type="checkbox" id="c<?php echo $row['id'];?>" class="check" value=<?php echo $row['id'];?>><label for="c1" class="label"><?php echo $row['id'];?></label></td>
@@ -116,7 +116,7 @@ $rows=fetchAll($sql);
 					        	<td><?php echo $row['mPrice'];?></td>
 					        </tr>
 					        <tr>
-					        	<td  width="20%"  align="right">幕课网价格</td>
+					        	<td  width="20%"  align="right">价格</td>
 					        	<td><?php echo $row['iPrice'];?></td>
 					        </tr>
 					        <tr>
@@ -150,7 +150,7 @@ $rows=fetchAll($sql);
 					</div>
 				</td>
 			</tr>
-			<?php  endforeach;?>
+			<?php  endforeach;}?>
 			<?php if($totalRows>$pageSize):?>
 			<tr>
 				<td colspan="7"><?php echo showPage($page, $totalPage,"keywords={$keywords}&order={$order}");?></td>

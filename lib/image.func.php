@@ -35,7 +35,7 @@ function verifyImage($line = 0,$pixel = 0,$length = 4,$type = 1,$see_name = "ver
 	imagedestroy ( $image );
 }
 
-function thumb($filename,$destination=null,$dst_w=null,$dst_h=null,$isReservedSource=false,$scale=0.5){
+function thumb($filename,$destination=null,$dst_w=null,$dst_h=null,$scale=0.5){
 	list($src_w,$src_h,$imagetype)=getimagesize($filename);
 	if(is_null($dst_w)||is_null($dst_h)){
 		$dst_w=ceil($src_w*$scale);
@@ -55,8 +55,5 @@ function thumb($filename,$destination=null,$dst_w=null,$dst_h=null,$isReservedSo
 	$outFun($dst_image,$dstFilename);
 	imagedestroy($src_image);
 	imagedestroy($dst_image);
-	if(!$isReservedSource){
-		unlink($filename);
-	}
 	return $dstFilename;
 }

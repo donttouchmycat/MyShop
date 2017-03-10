@@ -1,5 +1,5 @@
 <?php
-require_once '../include.php';
+
 function showPage($page,$totalPage,$where = null){
 	$where = ($where == null)?null:"&".$where;
 	$url = $_SERVER['PHP_SELF'];
