@@ -19,3 +19,20 @@ function showPage($page,$totalPage,$where = null){
 	}
 	return $str."<br/>".$index.$prev.$p.$next.$last;
 }
+
+function showOtherpage($page,$totalPage,$id,$where){
+	$where = ($where == null)?null:"&".$where;
+	$url = $_SERVER['PHP_SELF'];
+	$prev = ($page == 1)?"<li class='am-disabled'><a>&laquo;</a></li>":"<li><a href='{$url}?page=".($page-1)."&&id={$id}&&{$where}'>&laquo;</a></li>";
+	$next = ($page == $totalPage)?"<li class='am-disabled'><a>&raquo;</a></li>":"<li><a href='{$url}?page=".($page+1)."&&id={$id}&&{$where}'>&raquo;</a></li>";
+	$p = "";
+	for($i = 1; $i <= $totalPage; $i ++) {
+		//当前页无连接
+		if ($page == $i) {
+			$p.="<li class='am-active'><a>".$page."</a></li>";
+		} else {
+			$p.="<li><a href='{$url}?page={$i}&&id={$id}&&{$where}'>{$i}</a><li>";
+		}
+	}
+	return $prev.$p.$next;
+}

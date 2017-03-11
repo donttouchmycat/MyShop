@@ -1,65 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>登陆</title>
-<link type="text/css" rel="stylesheet" href="css/reset.css">
-<link type="text/css" rel="stylesheet" href="css/main.css">
-<!--[if IE 6]>
-<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
-<script type="text/javascript" src="js/ie6Fixpng.js"></script>
-<![endif]-->
-</head>
 
-<body>
-<div class="headerBar">
-	<div class="logoBar login_logo">
-		<div class="comWidth">
-			<div class="logo fl">
-				<a href="#"><img src="images/logo.jpg" alt="慕课网"></a>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link href="css/skin.css" rel="stylesheet" type="text/css" />
+		<link href="basic/css/demo.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="AmazeUI-2.4.2/assets/css/amazeui.css" />
+		<link href="css/dlstyle.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+
+		<div class="login-boxtitle">
+			<a href="index.php"><img alt="logo" src="images/logo-bigger.jpg" /></a>
+		</div>
+
+		<div class="login-banner">
+			<div class="login-main">
+				<div class="login-banner-bg"><span></span><img src="images/big.jpg" /></div>
+				<div class="login-box">
+                    <h3 class="title">登录商城</h3>
+                    <div class="clear"></div>
+					<div class="login-form">
+						<form method="post" action="doAction.php?act=login">
+							<div class="user-name">
+								<label for="user"><i class="am-icon-user"></i></label>
+								<input type="text" name="username" id="user" placeholder="邮箱/手机/用户名">
+                            </div>
+                            <div class="user-pass">
+								<label for="password"><i class="am-icon-lock"></i></label>
+								<input type="password" name="password" id="password" placeholder="请输入密码">
+								<div class="am-cf">
+									<input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm">
+								</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="login-links">
+						<a href="reg.php" class="zcnext am-fr am-btn-default">注册</a>
+						<br />
+                    </div>
+
+					<div class="partner">
+						<div class="am-btn-group">
+							<li><a href="#" onfocus="this.blur();"><i class="am-icon-qq am-icon-sm"></i><span>QQ登录</span></a></li>
+							<li><a href="#" onfocus="this.blur();"><i class="am-icon-weibo am-icon-sm"></i><span>微博登录</span> </a></li>
+							<li><a href="#" onfocus="this.blur();"><i class="am-icon-weixin am-icon-sm"></i><span>微信登录</span> </a></li>
+						</div>
+					</div>
+				</div>
 			</div>
-			<h3 class="welcome_title">欢迎登陆</h3>
 		</div>
-	</div>
-</div>
 
-<div class="loginBox">
-	<div class="login_cont">
-	<form method="post" action="doAction.php?act=login" >
-		<ul class="login">
-			<li class="l_tit">邮箱/用户名/手机号</li>
-			<li class="mb_10"><input type="text"  name="username" placeholder="请输入用户名" class="login_input user_icon"></li>
-			<li class="l_tit">密码</li>
-			<li class="mb_10"><input type="password" name="password" class="login_input user_icon"></li>
-			<li class="autoLogin"><input type="checkbox" id="a1" class="checked"><label for="a1">自动登陆</label></li>
-			<li><input type="submit" value="" class="login_btn"></li>
-		</ul>
-		</form>
-		<div class="login_partners">
-			<p class="l_tit">使用合作方账号登陆网站</p>
-			<ul class="login_list clearfix">
-				<li><a href="#">QQ</a></li>
-				<li><span>|</span></li>
-				<li><a href="#">网易</a></li>
-				<li><span>|</span></li>
-				<li><a href="#">新浪微博</a></li>
-				<li><span>|</span></li>
-				<li><a href="#">腾讯微薄</a></li>
-				<li><span>|</span></li>
-				<li><a href="#">新浪微博</a></li>
-				<li><span>|</span></li>
-				<li><a href="#">腾讯微薄</a></li>
-			</ul>
+
+		<div class="footer" id="notbord">
+			<div class="foot">
+				<div class="f_nav">
+    				<div class="w1200">
+            			<dl>
+                			<dt>新手指南</dt>
+                			<dd>
+                    			<a href="#">注册新用户</a>
+                    			<a href="#">商品订购流程</a>
+                    			<a href="#">会员注册协议</a>
+                			</dd>
+            			</dl>
+            			<dl>
+                			<dt>付款方式</dt>
+                			<dd>
+                    			<a href="#">支付宝支付</a>
+                    			<a href="#">网上银行支付</a>
+                    			<a href="#">货到付款</a>
+                			</dd>
+            			</dl>
+            			<dl>
+                			<dt>常见问题</dt>
+                			<dd>
+                    			<a href="#">订单状态</a>
+                    			<a href="#">发票说明</a>
+                			</dd>
+            			</dl>
+            			<dl>
+                			<dt>售后服务</dt>
+                			<dd>
+                    			<a href="#">退换货政策</a>
+                    			<a href="#">退换货流程</a>
+                    			<a href="#">退款说明</a>
+                    			<a href="#">退换货申请</a>
+                			</dd>
+            			</dl>
+            			<dl>
+                			<dt>客服中心</dt>
+                			<dd>
+                    			<a href="#">常见问题</a>
+                    			<a href="#">联系客服</a>
+                    			<a href="#">投诉与建议</a>
+                			</dd>
+            			</dl>
+            			<div class="clear"></div>
+        			</div>
+    			</div>
+    			<div class="w1200">
+        			<div class="bottom">
+            			<a href="#">关于我们</a>|<a href="#">帮助中心</a>|<a href="#">法律声明</a>|<a href="#">用户协议</a>|<a href="#">联系我们</a>|<a href="#">人才招聘</a>|<a href="#">站点地图</a>
+           				<p>123@123</p>
+        			</div>
+    			</div>
+			</div>
 		</div>
-	</div>
-	<a class="reg_link" href="#"></a>
-</div>
+	</body>
 
-<div class="hr_25"></div>
-<div class="footer">
-	<p><a href="#">慕课简介</a><i>|</i><a href="#">慕课公告</a><i>|</i> <a href="#">招纳贤士</a><i>|</i><a href="#">联系我们</a><i>|</i>客服热线：400-675-1234</p>
-	<p>Copyright &copy; 2006 - 2014 慕课版权所有&nbsp;&nbsp;&nbsp;京ICP备09037834号&nbsp;&nbsp;&nbsp;京ICP证B1034-8373号&nbsp;&nbsp;&nbsp;某市公安局XX分局备案编号：123456789123</p>
-	<p class="web"><a href="#"><img src="images/webLogo.jpg" alt="logo"></a><a href="#"><img src="images/webLogo.jpg" alt="logo"></a><a href="#"><img src="images/webLogo.jpg" alt="logo"></a><a href="#"><img src="images/webLogo.jpg" alt="logo"></a></p>
-</div>
-</body>
 </html>

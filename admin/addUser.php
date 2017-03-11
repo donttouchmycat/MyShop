@@ -20,13 +20,7 @@
 		<td align="right">邮箱</td>
 		<td><input type="text" name="email" placeholder="请输入邮箱"/></td>
 	</tr>
-	<tr>
-		<td align="right">性别</td>
-		<td><input type="radio" name="sex" value="1" checked="checked"/>男
-		<input type="radio" name="sex" value="2" />女
-		<input type="radio" name="sex" value="3" />保密
-		</td>
-	</tr>
+
 	<tr>
 		<td colspan="2"><input type="submit"  value="添加用户"/></td>
 	</tr>

@@ -175,16 +175,16 @@ function getAllPros(){
 }
 
 function getProsByCid($cid){
-	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from my_pro as p join my_cate c on p.cId=c.id where p.cId={$cid} limit 4";
+	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from my_pro as p join my_cate c on p.cId=c.id where p.cId={$cid} limit 8";
 	$rows=fetchAll($sql);
 	return $rows;
 }
 
-function getSmallProsByCid($cid){
-	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from my_pro as p join my_cate c on p.cId=c.id where p.cId={$cid} limit 4,4";
-	$rows=fetchAll($sql);
-	return $rows;
-}
+// function getSmallProsByCid($cid){
+// 	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from my_pro as p join my_cate c on p.cId=c.id where p.cId={$cid} limit 4,4";
+// 	$rows=fetchAll($sql);
+// 	return $rows;
+// }
 
 function getProInfo(){
 	$sql="select id,pName from my_pro order by id asc";
