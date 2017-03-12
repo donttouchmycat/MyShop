@@ -102,3 +102,13 @@ function delUser($id){
 	}
 	return $mes;
 }
+
+function addspc(){
+	foreach ($_POST as $key=>$val){
+		$arr[$key] = $val;
+	}
+	$spc=$arr['spc'];
+	$selec1=$arr['selec1'];
+	$selec2=$arr['selec2'];
+	$sprice=$arr['sprice'];
+}

@@ -44,7 +44,7 @@ $proInfo=getProById($id);
 </script>
 </head>
 <body>
-<h3>添加商品</h3>
+<h3>修改商品</h3>
 <form action="doAdminAction.php?act=editPro&id=<?php echo $id;?>" method="post" enctype="multipart/form-data">
 <table width="70%"  border="1" cellpadding="5" cellspacing="0" bgcolor="#cccccc">
 	<tr>
@@ -74,7 +74,7 @@ $proInfo=getProById($id);
 		<td><input type="text" name="mPrice"  value="<?php echo $proInfo['mPrice'];?>"/></td>
 	</tr>
 	<tr>
-		<td align="right">商品慕课价</td>
+		<td align="right">商品原价价</td>
 		<td><input type="text" name="iPrice"  value="<?php echo $proInfo['iPrice'];?>"/></td>
 	</tr>
 	<tr>
@@ -90,10 +90,58 @@ $proInfo=getProById($id);
 			<div id="attachList" class="clear"></div>
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2"><input type="submit"  value="编辑商品"/></td>
-	</tr>
+
 </table>
 </form>
+<form action="doAdminAction.php?act=wstore" method="post" >
+	<table width="70%"  border="1" cellpadding="5" cellspacing="0" bgcolor="#cccccc">
+		<tr id="form">
+			<td>
+				规格（例：颜色）
+			</td>
+			<td>
+				选项（例：黑色）
+			</td>
+			<td>
+				选项（例：16GB）
+			</td>
+			<td>
+				价格（例：100）
+			</td>
+		</tr>
+		<tr>
+			<td><input type="text" name="spc[]"/></td>
+			<td>
+				<input type="text" name="selec1[]"/>
+			</td>
+			<td>
+				<input type="text" name="selec2[]"/>
+			</td>
+			<td>
+				<input type="text" name="sprice[]"/>
+			</td>
+			<td>
+				<input type="button" value="删除" onclick="del(event)"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5"><input type="button" value="增加规格" onclick="add()"/></td>
+		</tr>
+		<tr>
+			<td colspan="5"><input type="submit"  value="编辑商品"/></td>
+		</tr>
+	</table>
+</form>
+<script type="text/javascript">
+	function add(){
+		var str='<tr><td><input type="text" name="spc[]"/></td><td><input type="text" name="selec1[]"/><td><input type="text" name="selec2[]"/></td></td><td><input type="text" name="sprice[]"/></td><td><input type="button" value="删除" onclick="del(event)"/></td></tr>';
+		$('#form').after(str);
+	}
+	function del(event){
+		var node = event.target;
+		var parent =node.parentNode.parentNode;
+		parent.parentNode.removeChild(parent);
+		}
+</script>
 </body>
 </html>

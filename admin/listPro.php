@@ -92,7 +92,7 @@ $rows=fetchAll($sql);
                 <td><?php echo date("Y-m-d H:i:s",$row['pubTime']);?></td>
                 <td><?php echo $row['iPrice'];?>元</td>
                 <td align="center">
-                	<input type="button" value="详情" class="btn" onclick="showDetail(<?php echo $row['id'];?>,'<?php echo $row['pName'];?>')"><input type="button" value="修改" class="btn" onclick="editPro(<?php echo $row['id'];?>)"><input type="button" value="删除" class="btn"onclick="delPro(<?php echo $row['id'];?>)">
+                	<input type="button" value="编辑" class="btn" onclick="editPro(<?php echo $row['id'];?>)"><input type="button" value="删除" class="btn"onclick="delPro(<?php echo $row['id'];?>)">
 					<div id="showDetail<?php echo $row['id'];?>" style="display:none;">
 						<table class="table" cellspacing="0" cellpadding="0">
 					    	<tr>
@@ -128,18 +128,6 @@ $rows=fetchAll($sql);
 					                ?>
 									<img width="100" height="100" src="uploads/<?php echo $img['albumPath'];?>" alt=""/> &nbsp;&nbsp;
 					            	<?php endforeach;?>
-								</td>
-							</tr>
-							<tr>
-								<td width="20%"  align="right">是否上架</td>
-								<td>
-									<?php echo $row['isShow']==1?"上架":"下架";?>
-								</td>
-							</tr>
-							<tr>
-								<td width="20%"  align="right">是否热卖</td>
-								<td>
-									<?php echo $row['isHot']==1?"热卖":"正常";?>
 								</td>
 							</tr>
 						</table>
