@@ -15,7 +15,6 @@ function insert($table,$array){
 	$key = join(",", array_keys($array));
 	$vals="'".join("','",array_values($array))."'";
 	$sql="insert {$table}($key) values({$vals})";
-
 	mysqli_query($link, $sql);
 	return mysqli_insert_id($link);
 	mysqli_close($link);
@@ -77,7 +76,7 @@ function fetchOne($sql,$result_type=MYSQL_ASSOC){
 	if (!$result){
 		return null;
 	}
-	$row = mysqli_fetch_array($result,$result_type);
+	@$row = mysqli_fetch_array($result,$result_type);
 	return $row;
 	mysqli_close($link);
 }

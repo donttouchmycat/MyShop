@@ -92,7 +92,7 @@ $rows=fetchAll($sql);
                 <td><?php echo date("Y-m-d H:i:s",$row['pubTime']);?></td>
                 <td><?php echo $row['iPrice'];?>元</td>
                 <td align="center">
-                	<input type="button" value="编辑" class="btn" onclick="editPro(<?php echo $row['id'];?>)"><input type="button" value="删除" class="btn"onclick="delPro(<?php echo $row['id'];?>)">
+                	<input type="button" value="编辑" class="btn" onclick="editPro(<?php echo $row['id'];?>)"><input type="button" value="添加规格" class="btn" onclick="addSpc(<?php echo $row['id'];?>)"><input type="button" value="删除" class="btn"onclick="delPro(<?php echo $row['id'];?>)">
 					<div id="showDetail<?php echo $row['id'];?>" style="display:none;">
 						<table class="table" cellspacing="0" cellpadding="0">
 					    	<tr>
@@ -172,6 +172,9 @@ function showDetail(id,t){
 			window.location="doAdminAction.php?act=delPro&id="+id;
 		}
 	}
+	function addSpc(id){
+		window.location='addSpc.php?id='+id;
+		}
 	function search(){
 		if(event.keyCode==13){
 			var val=document.getElementById("search").value;

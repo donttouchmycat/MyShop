@@ -1,9 +1,13 @@
 <?php
 require_once 'include.php';
-$id=$_REQUEST['id'];
+$id=(int)$_REQUEST['id'];
+$uid=(int)$_SESSION['loginFlag'];
 $proInfo=getProById($id);
 $cates = getAllcate();
 $proImgs=getProImgsById($id);
+$spc=getAllSpc($id);
+$sel1=getOneSel($id);
+$sel2=getTowSel($id);
 if(!($proImgs &&is_array($proImgs))){
 	alertMes("商品图片错误", "index.php");
 }
@@ -60,10 +64,7 @@ if(!($proImgs &&is_array($proImgs))){
 					<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
 				</div>
 				<div class="topMessage mini-cart">
-					<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-				</div>
-				<div class="topMessage favorite">
-					<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+					<div class="menu-hd"><a id="mc-menu-hd" href="shopcart.php" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
 				</div>
 			</ul>
 		</div>
@@ -112,24 +113,10 @@ if(!($proImgs &&is_array($proImgs))){
 						});
 					});
 
+						
+					
 				</script>
-				<div class="scoll">
-					<section class="slider">
-						<div class="flexslider">
-							<ul class="slides">
-								<li>
-									<img src="images/01.jpg" title="pic" />
-								</li>
-								<li>
-									<img src="images/02.jpg" />
-								</li>
-								<li>
-									<img src="images/03.jpg" />
-								</li>
-							</ul>
-						</div>
-					</section>
-				</div>
+
 
 				<!--放大镜-->
 
@@ -146,7 +133,50 @@ if(!($proImgs &&is_array($proImgs))){
 										$(".jqzoom").attr('src', $(this).find("img").attr("mid"));
 										$(".jqzoom").attr('rel', $(this).find("img").attr("big"));
 									});
+									
+									$('.sku-line').each(function() {
+										$(this).click(function() {
+											selecte();
+										});
+									});
+									$('#LikBasket').click(function(event) {
+										var price = $('.price.iteminfo_price').find('dd').find('span').html();
+										var num = $('#text_box').attr('value');
+										var sel1 = $('#sel1').find('.sku-line.selected');
+										var sel2 = $('#sel2').find('.sku-line.selected');
+										var sel1_name = sel1.html();
+										var sel2_name = sel2.html(); 
+										console.log(sel2_name);
+
+										if (sel1_name==null||sel2_name==null) {
+											alert("请选择规格");
+											
+										}else{
+											 $.ajax({
+												'url':"doAction.php?act=addCart&&price="+price+"&&num="+num+"&&id=<?php echo $id;?>&&sel1="+sel1_name+"&&sel2="+sel2_name+"&&uid=<?php echo $uid;?>",
+												'success':function(){
+													alert('添加购物车成功');
+												}
+											})
+										
+									}
+									});
 								});
+								function selecte(){
+									var sel1 = $('#sel1').find('.sku-line.selected').attr('data-id');
+									var sel2 = $('#sel2').find('.sku-line.selected').attr('data-id');
+									var sel = sel1+","+sel2;
+									if (sel1&&sel2) {
+										 $.ajax({
+										 	'url':"doAction.php?act=sech&&path="+sel+"&&id='<?php echo $id;?>'",
+										 	'success':function(result){
+													$('.price.iteminfo_price').find('dd').find('span').html(result);
+													}
+										 })
+										 
+										
+									}
+								}
 							</script>
 
 							<div class="tb-booth tb-pic tb-s310">
@@ -179,11 +209,11 @@ if(!($proImgs &&is_array($proImgs))){
 							<div class="tb-detail-price">
 								<li class="price iteminfo_price">
 									<dt>促销价</dt>
-									<dd><em>￥</em><?php echo $proInfo['iPrice'];?></dd>
+									<dd><em>￥</em><span><?php echo $proInfo['iPrice'];?></span></dd>
 								</li>
 								<li class="price iteminfo_mktprice">
 									<dt>原价</dt>
-									<dd><em>￥</em><?php echo $proInfo['mPrice'];?></dd>
+									<dd><em>￥</em><span><?php echo $proInfo['mPrice'];?></span></dd>
 								</li>
 								<div class="clear"></div>
 							</div>
@@ -194,20 +224,7 @@ if(!($proImgs &&is_array($proImgs))){
 							</dl>
 							<div class="clear"></div>
 
-							<!--销量-->
-							<ul class="tm-ind-panel">
-								<li class="tm-ind-item tm-ind-sellCount canClick">
-									<div class="tm-indcon"><span class="tm-label">月销量</span><span class="tm-count">1015</span></div>
-								</li>
-								<li class="tm-ind-item tm-ind-sumCount canClick">
-									<div class="tm-indcon"><span class="tm-label">累计销量</span><span class="tm-count">6015</span></div>
-								</li>
-								<li class="tm-ind-item tm-ind-reviewCount canClick tm-line3">
-									<div class="tm-indcon"><span class="tm-label">累计评价</span><span class="tm-count">640</span></div>
-								</li>
-							</ul>
-							<div class="clear"></div>
-
+						
 							<!--各种规格-->
 							<dl class="iteminfo_parameter sys_item_specpara">
 								<dt class="theme-login"><div class="cart-title">可选规格<span class="am-icon-angle-right"></span></div></dt>
@@ -227,20 +244,19 @@ if(!($proImgs &&is_array($proImgs))){
 												<div class="theme-signin-left">
 
 													<div class="theme-options">
-														<div class="cart-title">口味</div>
-														<ul>
-															<li class="sku-line selected">原味</li>
-															<li class="sku-line">奶油</li>
-															<li class="sku-line">炭烧</li>
-															<li class="sku-line">咸香</li>
+														<div class="cart-title"><?php echo $spc['0']['attr_name']?></div>
+														<ul id="sel1">
+															<?php foreach($sel1 as $se1):?>
+															<li class="sku-line" id="test" data-id="<?php echo $se1["symbol"];?>"><?php echo $se1["attr_value"];?></li>
+															<?php endforeach?>
 														</ul>
 													</div>
 													<div class="theme-options">
-														<div class="cart-title">包装</div>
-														<ul>
-															<li class="sku-line selected">手袋单人份</li>
-															<li class="sku-line">礼盒双人份</li>
-															<li class="sku-line">全家福礼包</li>
+														<div class="cart-title"><?php echo $spc['1']['attr_name'];?></div>
+														<ul id="sel2">
+															<?php foreach($sel2 as $se2):?>
+															<li class="sku-line" data-id="<?php echo $se2["symbol"];?>"><?php echo $se2["attr_value"];?></li>
+															<?php endforeach?>
 														</ul>
 													</div>
 													<div class="theme-options">
@@ -249,27 +265,15 @@ if(!($proImgs &&is_array($proImgs))){
 															<input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
 															<input id="text_box" name="" type="text" value="1" style="width:30px;" />
 															<input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
-															<span id="Stock" class="tb-hidden">库存<span class="stock">1000</span>件</span>
+															<span id="Stock" class="tb-hidden">库存<span class="stock"><?php echo $proInfo['pNum'];?></span>件</span>
 														</dd>
 
 													</div>
 													<div class="clear"></div>
 
-													<div class="btn-op">
-														<div class="btn am-btn am-btn-warning">确认</div>
-														<div class="btn close am-btn am-btn-warning">取消</div>
-													</div>
+													
 												</div>
-												<div class="theme-signin-right">
-													<div class="img-info">
-														<img src="images/songzi.jpg" />
-													</div>
-													<div class="text-info">
-														<span class="J_Price price-now">¥39.00</span>
-														<span id="Stock" class="tb-hidden">库存<span class="stock">1000</span>件</span>
-													</div>
-												</div>
-
+												
 											</form>
 										</div>
 									</div>
@@ -278,15 +282,7 @@ if(!($proImgs &&is_array($proImgs))){
 							</dl>
 							<div class="clear"></div>
 							<!--活动	-->
-							<div class="shopPromotion gold">
-								<div class="hot">
-									<dt class="tb-metatit">店铺优惠</dt>
-									<div class="gold-list">
-										<p>购物满2件打8折，满3件7折</p>
-									</div>
-								</div>
-								<div class="clear"></div>
-							</div>
+
 						</div>
 
 						<div class="pay">
@@ -379,57 +375,7 @@ if(!($proImgs &&is_array($proImgs))){
 
 		<div class="footer" id="foot">
 			<div class="foot">
-				<div class="f_nav">
-    				<div class="w1200">
-            			<dl>
-                			<dt>新手指南</dt>
-                			<dd>
-                    			<a href="#">注册新用户</a>
-                    			<a href="#">商品订购流程</a>
-                    			<a href="#">会员注册协议</a>
-                			</dd>
-            			</dl>
-            			<dl>
-                			<dt>付款方式</dt>
-                			<dd>
-                    			<a href="#">支付宝支付</a>
-                    			<a href="#">网上银行支付</a>
-                    			<a href="#">货到付款</a>
-                			</dd>
-            			</dl>
-            			<dl>
-                			<dt>常见问题</dt>
-                			<dd>
-                    			<a href="#">订单状态</a>
-                    			<a href="#">发票说明</a>
-                			</dd>
-            			</dl>
-            			<dl>
-                			<dt>售后服务</dt>
-                			<dd>
-                    			<a href="#">退换货政策</a>
-                    			<a href="#">退换货流程</a>
-                    			<a href="#">退款说明</a>
-                    			<a href="#">退换货申请</a>
-                			</dd>
-            			</dl>
-            			<dl>
-                			<dt>客服中心</dt>
-                			<dd>
-                    			<a href="#">常见问题</a>
-                    			<a href="#">联系客服</a>
-                    			<a href="#">投诉与建议</a>
-                			</dd>
-            			</dl>
-            			<div class="clear"></div>
-        			</div>
-    			</div>
-    			<div class="w1200">
-        			<div class="bottom">
-            			<a href="#">关于我们</a>|<a href="#">帮助中心</a>|<a href="#">法律声明</a>|<a href="#">用户协议</a>|<a href="#">联系我们</a>|<a href="#">人才招聘</a>|<a href="#">站点地图</a>
-           				<p>网络文化经营许可证：粤网文[2015]0295-065号<br />© 2015 深圳易易城科技网络有限公司. 粤ICP备15042543号</p>
-        			</div>
-    			</div>
+				<?php require_once 'foot.php';?>
 			</div>
 		</div>
 					</div>

@@ -2,6 +2,7 @@
 require_once 'include.php';
 $mes=null;
 @$act = $_REQUEST['act'];
+@$id=$_REQUEST['id'];
 if ($act == "login"){
 	$mes = login();
 }elseif($act == 'userOut'){
@@ -17,11 +18,23 @@ if ($act == "login"){
 }elseif($act == "addr"){
 	addAddr();
 }elseif($act == "def"){
-	$id = $_REQUEST['id'];
 	setDef($id);
-}elseif ($act="del"){
-	$id = $_REQUEST['id'];
+}elseif ($act == "del"){
 	delDef($id);
+}elseif ($act == "sech"){
+	$path=$_REQUEST['path'];
+	getSprice($path, $id);
+}elseif($act == "addCart"){
+	$row['num'] = $_REQUEST['num'];
+	$row['sprice'] = $_REQUEST['price'];
+	$row['uid']  =$_REQUEST['uid'];
+	$row['sel1'] = $_REQUEST['sel1'];
+	$row['item_id'] = $id;
+	$row['sel2'] = $_REQUEST['sel2'];
+	//print_r($row);
+	addCart($row);
+}elseif($act=="delCart"){
+	delCart($id);
 }
 
 if($mes){

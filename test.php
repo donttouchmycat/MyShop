@@ -1,2 +1,2 @@
 <?php
-echo $_POST['username'];
+echo '123';

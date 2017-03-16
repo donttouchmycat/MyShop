@@ -33,7 +33,7 @@ if ($act == "logout"){
 }elseif($act=="delUser"){
 		$mes=delUser($id);
 }elseif($act="wstore"){
-	addspc();
+	$mes=addspc($id);
 }
 
 if(@$mes){

@@ -103,12 +103,70 @@ function delUser($id){
 	return $mes;
 }
 
-function addspc(){
-	foreach ($_POST as $key=>$val){
-		$arr[$key] = $val;
+function addspc($id){
+	$where = "item_id={$id}";
+	delete("attr_key",$where);
+	delete("attr_val",$where);
+	delete("attr_path",$where);
+	foreach ($_POST['sp'] as $arr){
+		$sql="insert attr_key(item_id,attr_name) values('{$id}','{$arr}')";
+
+
+		fetchOne($sql);
 	}
-	$spc=$arr['spc'];
-	$selec1=$arr['selec1'];
-	$selec2=$arr['selec2'];
-	$sprice=$arr['sprice'];
+	$i=1;
+	foreach ($_POST['spc'] as $arr){
+		$a[]=$i;
+		$sql="insert attr_val(key_id,item_id,symbol,attr_value) values('1','{$id}','{$i}','{$arr}')";
+		$i++;
+
+		fetchOne($sql);
+
+	}
+	foreach ($_POST['selec'] as $arr){
+		$b[]=$i;
+		$sql="insert attr_val(key_id,item_id,symbol,attr_value) values('2','{$id}','{$i}','{$arr}')";
+		$i++;
+		fetchOne($sql);
+
+	}
+	foreach ($a as $q){
+		foreach ($b as $r){
+			$y[]="{$q},{$r}";
+
+		}
+	}
+	$i=0;
+	foreach ($_POST['sprice'] as $arr){
+				$sql="insert attr_path(item_id,sprice,symbol_path) values('{$id}','{$arr}','{$y[$i]}')";
+				$i++;
+
+				fetchOne($sql);
+
+
+			}
+			$mes="编辑成功!<br/><a href='listUser.php'>查看用户列表</a>";
+			return $mes;
+}
+
+function getAllSpc($id){
+	$sql="select attr_name from attr_key where item_id={$id}";
+	$rows = fetchAll($sql);
+	return $rows;
+}
+
+function getOneSel($id){
+	$sql="select attr_value,symbol from attr_val where item_id={$id} and key_id='1'";
+	$rows = fetchAll($sql);
+	return $rows;
+}
+function getTowSel($id){
+	$sql="select attr_value,symbol from attr_val where item_id={$id} and key_id='2'";
+	$rows = fetchAll($sql);
+	return $rows;
+}
+function getPrice($a,$b,$id){
+	$sql="select sprice from attr_path where symbol_path='{$a},{$b}' and item_id={$id}";
+	$rows = fetchAll($sql);
+	return $rows['0']['sprice'];
 }

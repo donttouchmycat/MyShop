@@ -75,17 +75,24 @@ regTime int unsigned not null
  	id int unsigned auto_increment key,
  	item_id int(10) unsigned not null,
  	attr_name varchar(50) not null
- )
+ );
 
  CREATE TABLE attr_val(
  	key_id INT(10) UNSIGNED NULL DEFAULT NULL,
  	item_id int(10) UNSIGNED NULL DEFAULT NULL,
  	symbol int(10) ,
  	attr_value varchar(255)
- )
+ );
 
  CREATE TABLE attr_path(
  	id int unsigned auto_increment key,
  	item_id int(10) UNSIGNED NULL DEFAULT NULL,
  	sprice double(15,2)
- )
+ );
+
+ CREATE TABLE my_cart(
+ 	id int unsigned auto_increment key,
+ 	item_id int(10) UNSIGNED NULL DEFAULT NULL,
+ 	num int UNSIGNED NULL DEFAULT NULL,
+ 	sprice double(15,2)
+ );

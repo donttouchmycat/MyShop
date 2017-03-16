@@ -45,21 +45,28 @@ function editpassword(){
 	$arr = $_POST;
 	$row['password'] = md5($arr['newname']);
 	if ($arr['oldname'] == $arr['newname']){
-		$mes="<script>window.location='password.php';alert('修改失败');</script>";
+		$mes="<script>window.location='password.php';alert('新旧密码重复');</script>";
 	}elseif ($arr['newname'] != $arr["repeatname"]){
-		$mes="<script>window.location='password.php';alert('修改失败');</script>";
+		$mes="<script>window.location='password.php';alert('新密码输出错误');</script>";
 	}else{
-		$link = connect();
-		$sql = "update my_user set password = '{$row['password']}' where id = {$id}";
-		$reslut = mysqli_query($link,$sql);
-		mysqli_close($link);
-		if ($reslut){
-			$mes="<script>window.location='login.php';alert(修改成功！);</script>";
-		}else {
-			$mes="<script>window.location='password.php';alert('修改失败');</script>";
+		$sql = "select password from my_user where id={$id}";
+		$row = fetchOne($sql);
+		if ($arr['oldname'] != $row['password'] ){
+			echo $mes="<script>window.location='password.php';alert('原密码不正确');</script>";
+		}else{
+			$link = connect();
+			$sql = "update my_user set password = '{$row['password']}' where id = {$id}";
+			$reslut = mysqli_query($link,$sql);
+			mysqli_close($link);
+			if ($reslut){
+				$mes="<script>window.location='login.php';alert(修改成功！);</script>";
+			}else {
+				$mes="<script>window.location='password.php';alert('修改失败');</script>";
+			}
 		}
+
 	}
-	return $mes;
+ 	return $mes;
 
 
 }
